@@ -1,0 +1,13 @@
+
+<div class="dropdown">
+  <label style="margin-right: 10px;">Selected Theme: </label>
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="themeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    {{ currentTheme() }}
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="themeDropdown">
+    <li><a class="dropdown-item" href="#" (click)="selectTheme('default')" >Default Theme</a></li>
+    <li><a class="dropdown-item" href="#" (click)="selectTheme('solar')">Solar</a></li>
+    <li><a class="dropdown-item" href="#" (click)="selectTheme('united')">United</a></li>
+    <li><a class="dropdown-item" href="#" (click)="selectTheme('vapor')">Vapor</a></li>
+  </ul>
+</div>
