@@ -14,7 +14,5 @@ RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/
 RUN echo "Installing the angular/cli..."
 RUN su vscode -c "npm i -g @angular/cli@13"
 
-RUN echo "Initializing dev certs..."
-RUN su vscode -c "dotnet dev-certs https --trust"
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
