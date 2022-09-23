@@ -1,0 +1,2 @@
+#!/bin/bash
+docker exec -it sql1 sh -c  "/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P Fender2000 -i /code/sql-dataload.sql"
