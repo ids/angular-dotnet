@@ -17,7 +17,9 @@ There is a sample data load script called `sql-dataload.sql` that can populate a
 - Docker Desktop
 - VSCode w/ Remote - Containers extensions installed
 
-That should be it for the host!  You'll likely have other VSCode extensions for C#, etc... 
+That should be it for the host!  
+
+> You'll likely have other VSCode extensions for C#, etc... 
 
 ## HTTPS Setup
 Initial setup involves sharing and trusting the development TLS cert so that it is trusted on both the host machine (by the browser), and also by the underlying proxy that runs in the docker environment and integrates with the SPA frameworks.
