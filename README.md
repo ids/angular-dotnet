@@ -11,7 +11,15 @@ Here is what I have so far:
 
 There is a sample data load script called `sql-dataload.sql` that can populate a sample DB.  A few simple scripts for setting up a SQL Server docker container make it fairly straightforward.
 
-## HTTPS
+## Requirements for the Host Machine
+
+- .NET 6.0 Runtime (for the cert stuff, everything else happens in the dev container)
+- Docker Desktop
+- VSCode w/ Remote - Containers extensions installed
+
+That should be it for the host!  You'll likely have other VSCode extensions for C#, etc... 
+
+## HTTPS Setup
 Initial setup involves sharing and trusting the development TLS cert so that it is trusted on both the host machine (by the browser), and also by the underlying proxy that runs in the docker environment and integrates with the SPA frameworks.
 
 __dotnet dev certs__ is handy for getting all this setup.
