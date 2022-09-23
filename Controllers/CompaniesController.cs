@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace AngularDotNet.Controllers
 {
@@ -25,6 +26,7 @@ namespace AngularDotNet.Controllers
 		{
 			try
 			{
+				Log.Information("Someone has asked for the list of companies from SQL Server...");
 				var companies = await _companyRepo.GetCompanies();
 				return Ok(companies);
 			}

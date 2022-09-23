@@ -6,6 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AngularDotNet.Contracts;
+using AngularDotNet.Repository;
+using AngularDotNet.Context;
+using Serilog;           
 
 namespace AngularDotNet
 {
@@ -13,11 +17,22 @@ namespace AngularDotNet
     {
         public static void Main(string[] args)
         {
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .CreateLogger();
+
+            Log.Information("Starting up the Host!");
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
 
-            builder.Services.AddControllersWithViews();
+            //builder.Services.AddControllersWithViews();
+            builder.Services.AddSingleton<DapperContext>(); 
+            builder.Services.AddScoped<ICompanyRepository, CompanyRepository>(); 
+            builder.Services.AddControllers();
 
             var app = builder.Build();
 
