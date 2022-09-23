@@ -2,6 +2,15 @@
 
 A base template for __.NET 6 WebApi__ backend __Angular 13__ SPA frontend.
 
+Here is what I have so far:
+
+- __Serilog__ for logging.  
+- __Dapper__ for ORM.
+- TODO: Identity Server for authentication.
+- TODO: Build deployment container template
+
+There is a sample data load script called `sql-dataload.sql` that can populate a sample DB.  A few simple scripts for setting up a SQL Server docker container make it fairly straightforward.
+
 ## HTTPS
 Initial setup involves sharing and trusting the development TLS cert so that it is trusted on both the host machine (by the browser), and also by the underlying proxy that runs in the docker environment and integrates with the SPA frameworks.
 
