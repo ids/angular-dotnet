@@ -1,18 +1,39 @@
-# .NET Core Angular w/Dev Container
+# .NET 6.0 and Angular 13.x in Dev Container
 
-Taking advantage of the remote container development environment integration for VSCode, this is a quick template for a starting point.
-
-> Theoretically, all this needs is to be copied/forked, renamed, re-opened in a VSCode container (generated from the .Dockerfile in the .devcontainer folder largely), and will immediately function as a .NET Core 6.0 LTS WebApi and Angular development environment.  None of the related SDK artifacts need be installed on the development machine, yet they will all be there in development through the integrated terminal session into the running development container.  Nifty.
-
-> Well, some of them do have to be installed on the host machine if you want to use HTTPS the easy way.
+A base template for __.NET 6 WebApi__ backend __Angular 13__ SPA frontend.
 
 ## HTTPS
+Initial setup involves sharing and trusting the development TLS cert so that it is trusted on both the host machine (by the browser), and also by the underlying proxy that runs in the docker environment and integrates with the SPA frameworks.
 
-To support HTTPS with the dotnet self signed... unfortunately this has to be done on the host machine, which means installing dotnet and then entering your sudo password a lot on macOS - the cert can then be used in the container services, and will be trusted by your host machine browser.
+__dotnet dev certs__ is handy for getting all this setup.
+
+1. __Create the dev certificate.__ dotnet 6.0 SDK is required on the host machine in order to run the following command:
 
 ```
 dotnet dev-certs https -ep ${HOME}/Workspace/certs/dotnetcert.pfx -p { password here }
+```
+
+> By including the password both the public and private keys will be embedded in the pfx.
+
+__Note:__ the certificate is exported to `${HOME}/Workspace/certs/` as `dotnetcert.pfx`.  Subsequent configurations expect this location and naming, and would need to be updated accordingly if changed.
+
+2. __Trust the certificate on the host machine__.
+
+```
 dotnet dev-certs https --trust
 ```
 
-> Make sure the settings in devcontainer.json align with the mount and location of your cert.
+The command works it magic installing and trusting the certificate, and many sudo passwords will be entered.
+
+The docker container will mount the host folder `~/Workspcae/certs`, which is then specified in the `.devcontainer.json` via the ENV variable for the ASPNET runtime:
+
+```
+	"remoteEnv": {
+	 	"ASPNETCORE_Kestrel__Certificates__Default__Password": "",
+	   	"ASPNETCORE_Kestrel__Certificates__Default__Path": "/home/vscode/.aspnet/https/dotnetcert.pfx"
+    },
+
+```
+
+In this way both the containerized ASPNET server and the host browser use the same locally trusted dev certificate (which is bound to the name `localhost`).
+
