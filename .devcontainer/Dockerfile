@@ -23,4 +23,4 @@ RUN su vscode -c "sudo update-ca-certificates"
 
 RUN su vscode -c "dotnet tool install --global dotnet-ef"
 
-RUN su vscode -c "cat << \\EOF >> ~/.bash_profile export PATH=\"$PATH:/home/vscode/.dotnet/tools\" EOF"
+RUN su vscode -c "echo 'export PATH=$PATH:/home/vscode/.dotnet/tools' >> /home/vscode/.bash_profile"
