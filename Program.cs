@@ -9,12 +9,32 @@ using System.Threading.Tasks;
 using AngularDotNet.Contracts;
 using AngularDotNet.Repository;
 using AngularDotNet.Context;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
+using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
 using Serilog;           
 
 namespace AngularDotNet
 {
     public class Program
     {
+        private static void CreateDbIfNotExists(IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<AngularDotNetContext>();
+                    DbInitializer.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "An error occurred creating the DB.");
+                }
+            }
+        }
+
         public static void Main(string[] args)
         {
 
@@ -33,6 +53,10 @@ namespace AngularDotNet
             builder.Services.AddSingleton<DapperContext>(); 
             builder.Services.AddScoped<ICompanyRepository, CompanyRepository>(); 
             builder.Services.AddControllers();
+            builder.Services.AddDbContext<AngularDotNetContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("EFConnection")));
+            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 
             var app = builder.Build();
 
@@ -41,12 +65,14 @@ namespace AngularDotNet
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+            } 
+            else {
+                CreateDbIfNotExists(app);
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-
 
             app.MapControllerRoute(
                 name: "default",
