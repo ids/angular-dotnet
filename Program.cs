@@ -2,18 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AngularDotNet.Contracts;
-using AngularDotNet.Repository;
-using AngularDotNet.Context;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer;
-using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
-using Serilog;           
-
+   
 namespace AngularDotNet
 {
     public class Program
