@@ -11,6 +11,10 @@ public class WeatherForecastController : ControllerBase
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
+    /// <summary>
+    /// Fetches a bogus weather forecast.
+    /// </summary>
+    /// <returns>WeatherForecast object</returns>
     [HttpGet]
     public IEnumerable<WeatherForecast> Get()
     {

@@ -7,8 +7,11 @@ Here is what I have so far:
 - __Serilog__ for logging.  
 - __Dapper__ for ORM.
 - __EntityFramework Core__ as another ORM alternative, so hard to decide (used by OpenIddict too)
+- __Swashbuckle__ Swagger and SwaggerUI.
+- TODO: cleanup sample db mess and move it into migrations
 - TODO: OpenIddict for authentication (IdentityServer seems to have taken a bad turn).
-- TODO: Build deployment container template
+
+and a __Dockerfile__ for deployment.
 
 There is a sample data load script called `sql-dataload.sql` that can populate a sample DB.  A few simple scripts for setting up a SQL Server docker container make it fairly straightforward.
 
